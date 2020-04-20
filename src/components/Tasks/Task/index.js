@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
+import Checkbox from './Checkbox'
 
 export class Task extends Component {
   render() {
-    const { title, body } = this.props
+    const { body } = this.props
     return (
       <div className="card my-3">
         <div className="card-body">
-          <h5 className="card-title">{title}</h5>
+          <Checkbox task={this.props} />
           <p className="card-text">{body}</p>
         </div>
       </div>

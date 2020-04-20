@@ -1,33 +1,21 @@
 import React, { Component } from 'react'
-import Task from './Task'
-import { get } from 'axios'
+import Task from './Task/index'
+import TasksContext from '../TasksContext'
 
 export class Posts extends Component {
+  static contextType = TasksContext
+
   state = {
     tasks: null,
   }
 
-  fetchTasks = async () => {
-    const { data } = await get('https://jsonplaceholder.typicode.com/posts')
-    return data
-  }
-
-  fetchAndSetTasks = async () => {
-    const tasks = await this.fetchTasks()
-    this.setState({ tasks })
-  }
-
-  componentDidMount() {
-    this.fetchAndSetTasks()
-  }
-
   renderTasks = () => {
-    const { tasks } = this.state
+    const { tasks } = this.context
     return tasks.map((post, index) => <Task key={index} {...post} />)
   }
 
   render() {
-    if (!this.state.tasks) {
+    if (!this.context.tasks) {
       return <p>Loading...</p>
     }
     return <div>{this.renderTasks()}</div>
