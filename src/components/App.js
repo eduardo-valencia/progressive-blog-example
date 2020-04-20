@@ -1,12 +1,11 @@
 import React from 'react'
-import Posts from './Posts'
-import '../App.css'
+import Tasks from './Tasks'
 
 function App() {
   return (
     <div className="container py-5">
-      <h1>Progressive Blog</h1>
-      <Posts />
+      <h1>Tasks</h1>
+      <Tasks />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class Post extends Component {
+export class Task extends Component {
   render() {
     const { title, body } = this.props
     return (
@@ -14,4 +14,4 @@ export class Post extends Component {
   }
 }
 
-export default Post
+export default Task
