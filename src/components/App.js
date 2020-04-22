@@ -3,34 +3,55 @@ import Tasks from './Tasks'
 import Layout from './Layout'
 import TasksContext from './TasksContext'
 import AddTask from './AddTask'
-import axios from 'axios'
+import setupDatabase from '../services/indexedDb'
+import tasksApi from '../config/api'
 
 class App extends Component {
   state = {
     tasks: null,
   }
 
-  tasksApi = axios.create({ baseURL: '/api/tasks' })
+  database = setupDatabase()
 
   setTasks = (tasks) => this.setState({ tasks })
 
   fetchTasks = async () => {
-    const { data } = await this.tasksApi.get('/')
+    const { data } = await tasksApi.get('/')
     this.setTasks(data)
   }
 
+  registerBackgroundSync = async () => {
+    const registration = await navigator.serviceWorker.ready
+    await registration.sync.register('addTask')
+  }
+
+  storeTaskAndSendSignal = async (task) => {
+    await this.database.tasks.add(task)
+    await this.registerBackgroundSync()
+  }
+
+  requestAddTask = (task) => tasksApi.post('/', task)
+
+  useBackgroundSyncOrRequest = (task) => {
+    const serviceWorkerExists = navigator.serviceWorker
+    if (serviceWorkerExists) {
+      return this.storeTaskAndSendSignal(task)
+    }
+    return this.requestAddTask(task)
+  }
+
   create = async (task) => {
-    await this.tasksApi.post('/', task)
+    await this.useBackgroundSyncOrRequest(task)
     await this.fetchTasks()
   }
 
   update = async (id, task) => {
-    await this.tasksApi.put(`/${id}`, task)
+    await tasksApi.put(`/${id}`, task)
     await this.fetchTasks()
   }
 
   delete = async (id) => {
-    await this.tasksApi.delete(`/${id}`)
+    await tasksApi.delete(`/${id}`)
     await this.fetchTasks()
   }
 
