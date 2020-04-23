@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   storeTaskAndSendSignal = async (task) => {
-    await this.database.tasks.add(task)
+    await tasksApi.post('/', task)
     await this.registerBackgroundSync()
   }
 
