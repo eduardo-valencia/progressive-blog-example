@@ -5,7 +5,8 @@ const getPublicPath = (subPath) => join(__dirname, 'public', subPath)
 
 const getInjectManifestPlugin = () =>
   new InjectManifest({
-    swSrc: getPublicPath('service-worker.js'),
+    swSrc: getPublicPath('service-worker-src.js'),
+    swDest: getPublicPath('service-worker.js'),
     maximumFileSizeToCacheInBytes: 100 * 1024 * 1024,
     include: [/\.svg$/, /\.html$/, /\.css$/, /\.js$/],
   })
