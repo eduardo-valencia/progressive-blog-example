@@ -13,8 +13,9 @@ registerRoute(
 )
 
 const handlePush = (event) => {
+  const { data } = event
   const options = {
-    body: event.body || 'Test',
+    body: data ? data.text() : 'Test',
   }
   event.waitUntil(self.registration.showNotification('Reminder!', options))
 }
