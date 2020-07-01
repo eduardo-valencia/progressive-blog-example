@@ -18,20 +18,10 @@ export class Checkbox extends Component {
   }
 
   render() {
-    const { id, title } = this.props.task
+    const { id } = this.props.task
     const checkboxId = `${id}-checkbox`
     return (
-      <div className="custom-control custom-checkbox">
-        <input
-          type="checkbox"
-          className="custom-control-input"
-          id={checkboxId}
-          onChange={this.handleChange}
-        />
-        <label className="custom-control-label" htmlFor={checkboxId}>
-          <h5>{title}</h5>
-        </label>
-      </div>
+      <input type="checkbox" id={checkboxId} onChange={this.handleChange} />
     )
   }
 }
