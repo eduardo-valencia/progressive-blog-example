@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from './Modal'
+import Modal from '../../shared/Modal'
 import Footer from './Footer'
 
 export default function TaskModal({ id, formId, ...other }) {
