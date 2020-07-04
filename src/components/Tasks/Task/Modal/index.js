@@ -4,7 +4,6 @@ import Close from '../../../shared/Close'
 import Permission from './Permission'
 import Schedule from './Schedule'
 import axios from 'axios'
-// import process from 'process'
 import { urlBase64ToUint8Array } from '../../../../utils/base64'
 
 export class Modal extends Component {
